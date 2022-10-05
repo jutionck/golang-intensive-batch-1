@@ -12,10 +12,16 @@ func main() {
 	cstRepo := repository.NewCustomerRepoistory()
 
 	// Create
-	newCustomer := cstRepo.Create(model.Customer{Id: "C001", Name: "Jack", Address: "USA", Job: "Actrist"})
-	fmt.Println(newCustomer)
+	cstRepo.Create(model.Customer{Id: "C001", Name: "Jack", Address: "USA", Job: "Actrist"})
+	cstRepo.Create(model.Customer{Id: "C002", Name: "Bulan", Address: "UK", Job: "Actrist"})
 
 	// GetAll
-	customers := cstRepo.GetAll()
-	fmt.Println(customers)
+	fmt.Println("customers 01", cstRepo.GetAll())
+
+	// Delete
+	cstRepo.Delete("C001")
+
+	// Get All Again
+	fmt.Println("customers 02", cstRepo.GetAll())
+
 }
