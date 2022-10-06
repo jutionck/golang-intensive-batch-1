@@ -19,9 +19,11 @@ func main() {
 	fmt.Println("customers 01", cstRepo.GetAll())
 
 	// Delete
-	cstRepo.Delete("C001")
+	// cstRepo.Delete("C001")
+	// fmt.Println("customers 02", cstRepo.GetAll())
 
-	// Get All Again
+	// Update
+	cstRepo.Update(model.Customer{Id: "C002", Name: "Bintang", Address: "UK", Job: "Actrist"})
 	fmt.Println("customers 02", cstRepo.GetAll())
 
 }

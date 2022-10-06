@@ -10,6 +10,7 @@ type CustomerRespository interface {
 	GetAll() []model.Customer
 	Create(customer model.Customer) model.Customer
 	Delete(id string) string
+	Update(customer model.Customer) model.Customer
 }
 
 type customerRespository struct {
@@ -38,6 +39,28 @@ func (c *customerRespository) Delete(id string) string {
 	}
 	c.db = customers
 	return fmt.Sprintf("Data customer with ID %s deleted", id)
+}
+
+func (c *customerRespository) Update(customer model.Customer) model.Customer {
+	// pass by value
+	// for _, cst := range c.db {
+	// 	if cst.Id == customer.Id {
+	// 		cst.Name = customer.Name
+	// 		cst.Address = customer.Address
+	// 		cst.Job = customer.Job
+	// 		break
+	// 	}
+	// }
+	for i, cst := range c.db {
+		if cst.Id == customer.Id {
+			cst.Name = customer.Name
+			cst.Address = customer.Address
+			cst.Job = customer.Job
+			c.db[i] = cst
+			break
+		}
+	}
+	return customer
 }
 
 func NewCustomerRepoistory() CustomerRespository {
