@@ -5,25 +5,30 @@ import (
 
 	"github.com/golang-intensive/model"
 	"github.com/golang-intensive/repository"
+	"github.com/golang-intensive/usecase"
 )
 
 func main() {
 
 	cstRepo := repository.NewCustomerRepoistory()
+	cstUseCase := usecase.NewCustomerUseCase(cstRepo)
 
 	// Create
-	cstRepo.Create(model.Customer{Id: "C001", Name: "Jack", Address: "USA", Job: "Actrist"})
-	cstRepo.Create(model.Customer{Id: "C002", Name: "Bulan", Address: "UK", Job: "Actrist"})
+	newCustomer01, err := cstUseCase.RegisterNewCustomer(model.Customer{Id: "C001", Name: "Jution", Address: "USA", Job: "Actrist"})
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(newCustomer01)
 
 	// GetAll
-	fmt.Println("customers 01", cstRepo.GetAll())
+	fmt.Println(cstUseCase.FindAllCustomer())
 
 	// Delete
-	// cstRepo.Delete("C001")
-	// fmt.Println("customers 02", cstRepo.GetAll())
+	// cstUseCase.DeleteCustomer("C001")
+	// fmt.Println(cstUseCase.FindAllCustomer())
 
 	// Update
-	cstRepo.Update(model.Customer{Id: "C002", Name: "Bintang", Address: "UK", Job: "Actrist"})
-	fmt.Println("customers 02", cstRepo.GetAll())
+	cstUseCase.UpdateCustomer(model.Customer{Id: "C001", Name: "Bintang", Address: "UK", Job: "Actrist"})
+	fmt.Println(cstUseCase.FindAllCustomer())
 
 }
